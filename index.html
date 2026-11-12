@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}html,body{margin:0}</style>
+<title>김동민 포트폴리오</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: archive-index. A masthead, a filter bar, then projects listed as rows grouped by category, each row ending in a download slot. */
+:root {
+  --bg: #edf0f3;
+  --surface: #f8f9fb;
+  --ink: #14202b;
+  --muted: #566573;
+  --line: #cdd5dc;
+  --accent: #0a6b88;
+  --accent-ink: #ffffff;
+  --tag-bg: #dde4ea;
+  --font-display: "Black Han Sans", "IBM Plex Sans KR", sans-serif;
+  --font-body: "IBM Plex Sans KR", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e151b;
+    --surface: #151e26;
+    --ink: #e4eaef;
+    --muted: #93a2af;
+    --line: #26323d;
+    --accent: #4fc0de;
+    --accent-ink: #06222b;
+    --tag-bg: #1e2a34;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e151b;
+  --surface: #151e26;
+  --ink: #e4eaef;
+  --muted: #93a2af;
+  --line: #26323d;
+  --accent: #4fc0de;
+  --accent-ink: #06222b;
+  --tag-bg: #1e2a34;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  padding-block: 32px 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 960px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+
+/* masthead */
+.mast { display: flex; flex-direction: column; gap: 14px; padding-bottom: 24px; border-bottom: 2px solid var(--ink); }
+.mast-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.mast h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(40px, 9vw, 76px); line-height: 1.02; margin: 0; text-wrap: balance; letter-spacing: -.01em; }
+.mast h1 span { color: var(--accent); }
+.mast p { margin: 0; max-width: 60ch; color: var(--muted); font-size: 16px; }
+.mast-links { display: flex; gap: 10px; flex-wrap: wrap; }
+.stats { display: flex; gap: 28px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
+.stats b { color: var(--ink); font-weight: 500; font-size: 18px; margin-right: 6px; font-variant-numeric: tabular-nums; }
+
+/* controls */
+.bar { display: flex; flex-direction: column; gap: 12px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip, .btn, .search {
+  font: inherit;
+}
+.chip {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.chip span { font-family: var(--font-mono); color: var(--muted); margin-left: 6px; font-size: 12px; }
+.chip:hover { border-color: var(--accent); }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.chip[aria-pressed="true"] span { color: var(--bg); opacity: .7; }
+.search {
+  width: 100%;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  padding: 10px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+.search::placeholder { color: var(--muted); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* sections and rows */
+.group { display: flex; flex-direction: column; }
+.group h2 {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+  margin: 0; padding: 0 0 8px;
+  font-family: var(--font-mono); font-weight: 500; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
+  border-bottom: 1px solid var(--ink);
+}
+.group h2 em { font-style: normal; color: var(--ink); font-family: var(--font-body); font-size: 15px; letter-spacing: 0; text-transform: none; font-weight: 600; }
+.row {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr) auto;
+  gap: 8px 20px;
+  align-items: start;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+.idx { font-family: var(--font-mono); font-size: 12px; color: var(--muted); padding-top: 4px; font-variant-numeric: tabular-nums; }
+.main { min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.main h3 { margin: 0; font-size: 18px; font-weight: 600; line-height: 1.3; }
+.main h3 small { font-family: var(--font-mono); font-weight: 400; font-size: 12px; color: var(--muted); margin-left: 8px; }
+.main p { margin: 0; color: var(--muted); max-width: 62ch; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.tag { font-family: var(--font-mono); font-size: 11.5px; background: var(--tag-bg); color: var(--ink); padding: 2px 8px; border-radius: 3px; }
+.tag.plat { background: transparent; border: 1px solid var(--line); color: var(--muted); }
+.dl { padding-top: 2px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 14px; border-radius: 4px;
+  border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink);
+  font-size: 13px; font-weight: 600; text-decoration: none; cursor: pointer; white-space: nowrap;
+}
+.btn:hover { filter: brightness(1.08); }
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn.ghost:hover { border-color: var(--accent); filter: none; }
+.btn[aria-disabled="true"] { background: transparent; color: var(--muted); border: 1px dashed var(--line); cursor: not-allowed; font-weight: 500; }
+.btn[aria-disabled="true"]:hover { filter: none; }
+.empty { padding: 32px 0; color: var(--muted); font-family: var(--font-mono); font-size: 13px; }
+.foot { font-family: var(--font-mono); font-size: 12px; color: var(--muted); border-top: 2px solid var(--ink); padding-top: 14px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+.dl { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn:disabled { opacity: .6; cursor: progress; }
+.toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(20px + env(safe-area-inset-bottom, 0px)); max-width: calc(100vw - 32px); background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 4px; font-size: 13px; z-index: 20; }
+@media (max-width: 640px) {
+  .row { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .idx { padding-top: 0; }
+  .dl { padding-top: 6px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .chip, .btn { transition: border-color .15s, filter .15s; }
+}
+</style>
+
+<div class="wrap">
+  <header class="mast">
+    <div class="mast-top"><span>Portfolio</span><span id="year"></span></div>
+    <h1>김동민<span>.</span><br>프로젝트 모음</h1>
+    <p>김동민 포트폴리오. 마인크래프트 서버와 플러그인, 웹과 VR 게임, PC 게임, 데스크톱 도구까지 지금까지 만든 프로젝트를 한 곳에서 보고 내려받을 수 있습니다.</p>
+    <div class="stats" id="stats"></div>
+    <div class="mast-links">
+      <a class="btn ghost" href="https://github.com/anaf-4" target="_blank" rel="noopener">GitHub · anaf-4</a>
+    </div>
+  </header>
+
+  <section class="bar" aria-label="필터">
+    <div class="chips" id="chips"></div>
+    <input class="search" id="q" type="search" placeholder="프로젝트 이름, 기술, 플랫폼으로 검색" aria-label="프로젝트 검색">
+  </section>
+
+  <main id="list"></main>
+
+  <div id="toast" class="toast" role="status" hidden></div>
+  <footer class="foot"><span>김동민 · 포트폴리오</span><span>다운로드 파일은 downloads 폴더에 들어 있습니다.</span></footer>
+</div>
+
+<script>
+/* 사이트 안에서 받는 파일. 키는 프로젝트 id. parts는 zip을 base64 텍스트로 쪼갠 조각이고, 받을 때 이어 붙여 원래 zip으로 되돌려 name 이름으로 저장합니다. */
+var FILES = {
+  "dama": [{"label": "웹 게임", "name": "DAMA-Pure-Strategy.zip", "href": "downloads/DAMA-Pure-Strategy.zip"}],
+  "vr-escape": [{"label": "웹 게임", "name": "silent-mansion.zip", "href": "downloads/silent-mansion.zip"}],
+  "infinite-stairs": [{"label": "Windows", "name": "InfiniteStairs-windows.zip", "href": "downloads/InfiniteStairs-windows.zip"}],
+  "tail-tag": [{"label": "플러그인", "name": "TailBattle-plugin.zip", "href": "downloads/TailBattle-plugin.zip"}],
+  "moafarm": [{"label": "플러그인 소스", "name": "MoaFarm-plugins-src.zip", "href": "downloads/MoaFarm-plugins-src.zip"}],
+  "mask-dungeon": [{"label": "웹 게임", "name": "mask-dungeon.zip", "href": "downloads/mask-dungeon.zip"}],
+  "infinite-drive": [{"label": "Windows", "name": "InfiniteDrive-windows.zip", "href": "downloads/InfiniteDrive-windows.zip"}, {"label": "Android", "name": "InfiniteDrive-android-apk.zip", "href": "downloads/InfiniteDrive-android-apk.zip"}],
+  "pixelforge": [{"label": "Windows", "name": "PixelForge-windows.zip", "href": "downloads/PixelForge-windows.zip"}],
+  "pixel-gen": [{"label": "Windows", "name": "PixelSpriteGen-windows.zip", "href": "downloads/PixelSpriteGen-windows.zip"}],
+  "asset-hunter": [{"label": "Windows", "name": "AssetHunter-windows.zip", "href": "downloads/AssetHunter-windows.zip"}]
+};
+
+var CATS = [
+  { id: "mc", name: "마인크래프트", en: "Minecraft" },
+  { id: "web", name: "웹 · VR 게임", en: "Web / WebXR" },
+  { id: "pc", name: "PC 게임", en: "Desktop games" },
+  { id: "tool", name: "도구 · 앱", en: "Tools" }
+];
+
+var PROJECTS = [
+  { id: "teamcraft-mp", cat: "mc", name: "TeamCraft-MP", en: "PocketMine-MP fork", desc: "PocketMine-MP를 바탕으로 만든 자체 포크입니다.", stack: ["PHP", "PocketMine-MP"], plat: "Minecraft Bedrock", gh: "https://github.com/anaf-4/TeamCraft-MP" },
+  { id: "moafarm", cat: "mc", name: "모아팜", en: "MoaFarm", desc: "마인크래프트 서버와 PMMP 플러그인 묶음입니다. 받을 수 있는 파일은 직접 만든 PHP 플러그인 소스입니다.", stack: ["PHP", "PMMP"], plat: "Minecraft Bedrock" },
+  { id: "tail-tag", cat: "mc", name: "꼬리잡기", en: "Tail Tag", desc: "블록벤치로 만든 꼬리 모델을 쓰는 미니게임입니다. 생존하면 갑옷이 강화되는 능력이 있습니다.", stack: ["Paper", "Blockbench"], plat: "Minecraft Java" },
+
+  { id: "dama", cat: "web", name: "DAMA : Pure Strategy", en: "다마: 퓨어 전략", desc: "웹에서 하는 턴제 전략 보드게임입니다.", stack: ["JavaScript", "Web"], plat: "Web" },
+  { id: "mask-dungeon", cat: "web", name: "마스크 던전", en: "Mask Dungeon", desc: "스컬에서 영감을 받은 웹 로그라이크입니다.", stack: ["JavaScript", "로그라이크"], plat: "Web" },
+  { id: "vr-escape", cat: "web", name: "침묵의 저택", en: "VR 방탈출 (가칭)", desc: "어두운 저택을 조사하며 푸는 추리형 VR 방탈출 게임입니다. NPC 대화와 여러 개의 방이 있습니다.", stack: ["WebXR", "3D"], plat: "Quest 3 · PC" },
+
+  { id: "oneuldo", cat: "pc", name: "오늘도 맑음!", en: "Sunny Day", desc: "혼자 만드는 인디 게임입니다.", stack: ["Godot 4"], plat: "Windows", link: { label: "Google Drive", url: "https://drive.google.com/file/d/15JaHJIu3pZ4sSWpQtOC9Fqa1ruYOLKWY/view?usp=drive_link" } },
+  { id: "infinite-stairs", cat: "pc", name: "무한의 계단 PC", en: "Infinite Stairs", desc: "모바일 게임 무한의 계단을 Windows 실행 파일로 만든 클론입니다.", stack: ["Windows exe"], plat: "Windows" },
+  { id: "infinite-drive", cat: "pc", name: "무한 드라이브 레이싱", en: "Infinite Drive Racing", desc: "Godot 프로젝트로 만든 레이싱 게임입니다. Windows와 Android 테스트 빌드가 있습니다.", stack: ["Godot"], plat: "Windows · Android" },
+
+  { id: "pixelforge", cat: "tool", name: "PixelForge", en: "픽셀포지", desc: "아세프라이트 스타일의 픽셀아트, 스프라이트, 타일맵 에디터입니다.", stack: ["Rust", "egui"], plat: "Desktop" },
+  { id: "pixel-gen", cat: "tool", name: "도트 이미지 생성기", en: "Prompt to pixel", desc: "프롬프트를 입력하면 도트 이미지를 만들어 주는 데스크톱 앱입니다.", stack: ["Rust"], plat: "Windows" },
+  { id: "asset-hunter", cat: "tool", name: "에셋 헌터", en: "Asset Hunter", desc: "게임 에셋을 검색하고, 자동으로 정리하고, 크레딧을 기록해 주는 앱입니다.", stack: ["Rust", "egui"], plat: "Desktop" }
+];
+
+var state = { cat: "all", q: "" };
+var $list = document.getElementById("list");
+var $chips = document.getElementById("chips");
+var $q = document.getElementById("q");
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+function esc(s) {
+  return String(s).replace(/[&<>"]/g, function (c) {
+    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+  });
+}
+
+function downloadBtn(p) {
+  var list = FILES[p.id];
+  var ext = p.link ? '<a class="btn" href="' + esc(p.link.url) + '" target="_blank" rel="noopener">' + esc(p.link.label) + ' ↗</a>' : "";
+  var gh = p.gh ? '<a class="btn" href="' + esc(p.gh) + '" target="_blank" rel="noopener">GitHub ↗</a>' : "";
+  if (!list || !list.length) {
+    if (gh || ext) return gh + ext;
+    if (p.big) return '<span class="btn" role="link" aria-disabled="true" title="사이트에 올릴 수 있는 크기를 넘어 외부 링크가 필요합니다">' + esc(p.big) + ' · 용량 초과</span>';
+    return '<span class="btn" role="link" aria-disabled="true" title="파일이 아직 올라오지 않았습니다">파일 준비 중</span>';
+  }
+  return gh + ext + list.map(function (f) {
+    return '<a class="btn" href="' + esc(f.href) + '" download>' + esc(f.label) + ' 받기 ↓</a>';
+  }).join(" ");
+}
+
+var downloadsApi = null;
+if (window.claude && claude.use) {
+  claude.use("downloads").then(function (d) { downloadsApi = d; }).catch(function () {});
+}
+
+function toast(msg) {
+  var t = document.getElementById("toast");
+  t.textContent = msg;
+  t.hidden = false;
+  clearTimeout(toast._t);
+  toast._t = setTimeout(function () { t.hidden = true; }, 3600);
+}
+
+function b64ToBytes(str) {
+  var bin = atob(str);
+  var out = new Uint8Array(bin.length);
+  for (var i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+  return out;
+}
+
+async function startDownload(btn) {
+  var f = (FILES[btn.getAttribute("data-id")] || [])[Number(btn.getAttribute("data-i"))];
+  if (!f) return;
+  if (!downloadsApi) { toast("이 화면에서는 다운로드를 쓸 수 없습니다. 클로드 앱이나 claude.ai에서 열어 주세요."); return; }
+  btn.disabled = true;
+  toast("파일을 준비하는 중입니다. 큰 파일은 잠시 걸립니다.");
+  try {
+    var chunks = [];
+    for (var k = 0; k < f.parts.length; k++) {
+      var res = await fetch(f.parts[k]);
+      if (!res.ok) throw new Error("fetch");
+      chunks.push(b64ToBytes((await res.text()).trim()));
+    }
+    await downloadsApi.save({ filename: f.name, data: new Blob(chunks) });
+    toast("저장했습니다: " + f.name);
+  } catch (err) {
+    if (err && err.code === "declined") { toast("저장을 취소했습니다."); }
+    else { toast("파일을 받지 못했습니다. 잠시 뒤 다시 시도해 주세요."); }
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+function matches(p) {
+  if (state.cat !== "all" && p.cat !== state.cat) return false;
+  if (!state.q) return true;
+  var hay = [p.name, p.en, p.desc, p.plat].concat(p.stack).join(" ").toLowerCase();
+  return hay.indexOf(state.q) !== -1;
+}
+
+function renderChips() {
+  var all = [{ id: "all", name: "전체" }].concat(CATS);
+  $chips.innerHTML = all.map(function (c) {
+    var n = c.id === "all" ? PROJECTS.length : PROJECTS.filter(function (p) { return p.cat === c.id; }).length;
+    return '<button class="chip" type="button" data-cat="' + c.id + '" aria-pressed="' + (state.cat === c.id) + '">' + esc(c.name) + '<span>' + n + '</span></button>';
+  }).join("");
+}
+
+function renderList() {
+  var n = 0;
+  var html = CATS.map(function (c) {
+    var items = PROJECTS.filter(function (p) { return p.cat === c.id && matches(p); });
+    if (!items.length) return "";
+    var rows = items.map(function (p) {
+      n += 1;
+      var tags = p.stack.map(function (t) { return '<span class="tag">' + esc(t) + '</span>'; }).join("") +
+        '<span class="tag plat">' + esc(p.plat) + '</span>';
+      return '<article class="row">' +
+        '<div class="idx">' + String(PROJECTS.indexOf(p) + 1).padStart(2, "0") + '</div>' +
+        '<div class="main"><h3>' + esc(p.name) + '<small>' + esc(p.en) + '</small></h3>' +
+        '<p>' + esc(p.desc) + '</p><div class="tags">' + tags + '</div></div>' +
+        '<div class="dl">' + downloadBtn(p) + '</div></article>';
+    }).join("");
+    return '<section class="group"><h2><em>' + esc(c.name) + '</em><span>' + esc(c.en) + ' · ' + items.length + '</span></h2>' + rows + '</section>';
+  }).join("");
+  $list.innerHTML = html || '<div class="empty">검색 결과가 없습니다. 다른 키워드로 찾아보세요.</div>';
+}
+
+function renderStats() {
+  var ready = PROJECTS.filter(function (p) { return p.gh || p.link || (FILES[p.id] && FILES[p.id].length); }).length;
+  document.getElementById("stats").innerHTML =
+    '<span><b>' + PROJECTS.length + '</b>프로젝트</span>' +
+    '<span><b>' + CATS.length + '</b>분류</span>' +
+    '<span><b>' + ready + '</b>받을 수 있음</span>';
+}
+
+$chips.addEventListener("click", function (e) {
+  var b = e.target.closest("button[data-cat]");
+  if (!b) return;
+  state.cat = b.getAttribute("data-cat");
+  renderChips();
+  renderList();
+});
+$list.addEventListener("click", function (e) {
+  var b = e.target.closest("button[data-id]");
+  if (b) startDownload(b);
+});
+$q.addEventListener("input", function () {
+  state.q = $q.value.trim().toLowerCase();
+  renderList();
+});
+
+renderStats();
+renderChips();
+renderList();
+</script>
+
+</html>
